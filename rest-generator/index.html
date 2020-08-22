@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Style Guide</title>
+
+  <script src="./res/json2.js"></script>
+  <script src="./res/jsonlint.js"></script>
+  <script src="./res/jsonmodel.js"></script>
+
+  <!-- Code Mirror -->
+
+  <link rel="stylesheet" href="./codemirror/codemirror.css">
+  <link rel="stylesheet" href="./codemirror/lint.css">
+  <script src="./codemirror/codemirror.js"></script>
+  <script src="./codemirror/javascript.js"></script>
+  <script src="./codemirror/lint.js"></script>
+  <script src="./codemirror/json-lint.js"></script>
+
+</head>
+
+<body>
+  <header>
+    <script>
+      window.onload = function() {
+        document.getElementById("convertApexModel").onclick = function() {
+          jsonModel.apexModel();
+        };
+
+        prettyPrint();
+      }
+    </script>
+  </header>
+  <h2>REST Class Generator</h2>
+  <h4>Admin2Dev Tool</h4>
+  <div>
+    <h4>Generate Apex Class from a REST API</h4>
+    <hr>
+
+    <section id="result-container">
+      <h3>JSON</h3>
+      <pre id="result" class="alert-success"></pre>
+    </section>
+
+    <textarea id="code" name="code"></textarea>
+    <script>
+      var editor_json = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        mode: "application/json",
+        gutters: ["CodeMirror-lint-markers"],
+        lint: true
+      });
+    </script>
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <td>Purpose</td>
+          <td>Input</td>
+        </tr>
+      </thead>
+      <tr>
+        <td>Class Name</td>
+        <td><input id="mainClassName" placeholder=" " style="width: 100%;"></td>
+      </tr>
+      <tr>
+        <td>Expected Return Type (defaults to void)</td>
+        <td><input id="returnType" placeholder=" " style="width: 100%;"></td>
+      </tr>
+      <tr>
+        <td>Method Name, without ()</td>
+        <td><input id="methodName" placeholder=" " style="width: 100%;"></td>
+      </tr>
+      <tr>
+        <td>URL End Point</td>
+        <td><input id="endPointUrl" placeholder=" " style="width: 100%;"></td>
+      </tr>
+    </table>
+    <button id="convertApexModel" class="global-button">Convert</button>
+    <hr>
+
+    <div id="precode">
+    </div>
+    <hr>
+  </div>
+  <footer class="footer-section global-footer">
+    <div class="footer-copyright">
+      <br>
+      Admin2Dev.com | <a href="https://github.com/Admin2Dev">Admin2Dev on GitHub</a> | <a href="https://github.com/kinngh">Harshdeep on GitHub</a>
+    </div>
+  </footer>
+  </div>
+  </div>
+
+  <script src="./codepretty/prettify.js"></script>
+
+
+
+</body>
+
+</html>
