@@ -16,7 +16,7 @@ The tool is hosted at [Admin2Dev Tools](https://admin2dev.com/tools/rest/) for u
 
 ## To-Do
 - [ ] Generate Mock Class and Test Class.
-- [ ]Add downloads as zip.
+- [ ] Add downloads as zip.
 
 ## Acknowledgements
 - y500 of Modelend
