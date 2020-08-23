@@ -1,4 +1,5 @@
 var jsonModel = (function() {
+  var noNoArray = [];
   var k = "",
     l = "",
     v = "",
@@ -60,11 +61,50 @@ var jsonModel = (function() {
       C();
       0 == d.length && (d = "RestClass");
       var c = z(a, "JSONResponse");
+      tempM = m;
+
+      /*
+      Redo this set of code
+      */
+
+      regexer = /\s.*{/g;
+      myArray = tempM.match(regexer);
+      var baseSplit = myArray.toString().split(" ");
+      var secondSplit = baseSplit.toString().split("\n");
+      var spliter = secondSplit.toString().split(",");
+      var newArray = [];
+      for (i = 0; i < spliter.length; i++) {
+        if (spliter[i] === 'class' || spliter[i] === 'public' || spliter[i] === '\n' || spliter[i] === ' ' || spliter[i] === '' || spliter[i] === '  ') {
+          //Don't do anything
+        } else {
+          var paraRemove = spliter[i].toString().split("{");
+          for (j = 0; j < noNoArray.length; j++) {
+            var noNoString = noNoArray[j].toString().toLowerCase() + ",";
+            var tempPara = paraRemove.toString().toLowerCase();
+
+            if (noNoString === tempPara) {
+              //Don't add arrays to cause duplicates
+            } else {
+              newArray.push(paraRemove[0]);
+            }
+          }
+
+        }
+      }
+
+      var classObjects = '';
+      for (i = 0; i < newArray.length; i++) {
+        classObjects += '\tpublic ' + newArray[i] + ' ' + newArray[i].toString().toLowerCase() + ';\n'
+      }
+
+
       //End code
-      c = v = F("JSONResponse") + c + "}" + "\r\n";
+      c = v = F("JSONResponse") + c + classObjects + "\n}" + "\r\n";
       0 < m.length && (c = m + "\r\n" + v);
       var codePre = document.createElement('pre');
       var e = document.createElement("code");
+
+
 
       returnType = document.getElementById("returnType").value.trim() || "void";
       methodName = document.getElementById("methodName").value.trim() || "methodName";
@@ -100,7 +140,6 @@ var jsonModel = (function() {
         genJsonResponse +
         genResponseReturn +
         "\n }\n}";
-
       codePre.append(e);
       e.append(c);
       document.getElementById("precode").appendChild(codePre);
@@ -130,9 +169,9 @@ var jsonModel = (function() {
               "string" === typeof f ?
               (c += "\tpublic String " + g + ";\r\n") :
               "number" === typeof f || "boolean" === typeof f ?
-              (c += "\tpublic integer " + g + ";\r\n") :
+              (c += "\tpublic Integer " + g + ";\r\n") :
               "object" === typeof f &&
-              ((c += "\tpublic List<" + h + "> " + g + ";\r\n"),
+              ((noNoArray.push(h)), (c += "\tpublic List<" + h + "> " + g + ";\r\n"),
                 (b = F(h) + z(b, e) + "}\r\n"),
                 (m = 0 < m.length ? m + "\r\n" + b : b))) :
             r(b) ?
@@ -144,7 +183,7 @@ var jsonModel = (function() {
             (c =
               0 <= b.toString().indexOf(".") ?
               c + ("\tpublic double " + g + ";\r\n") :
-              c + ("\tpublic integer " + g + ";\r\n")) :
+              c + ("\tpublic Integer " + g + ";\r\n")) :
             "boolean" === typeof b &&
             (c += "\tpublic boolean " + g + ";\r\n");
         }
