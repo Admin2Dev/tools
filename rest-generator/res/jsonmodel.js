@@ -82,7 +82,7 @@ var jsonModel = (function() {
       genResponse = "\tHttpResponse response = http.send(request);\n\n";
 
       genJsonResponse =
-        "\tJSONResopnse result = (JSONResponse) JSON.desearlize(response.getBody(), JSONResponse.class);\n";
+        "\tJSONResponse result = (JSONResponse) JSON.deserialize(response.getBody(), JSONResponse.class);\n";
       genResponseReturn =
         "\treturn result.\; //Your response result from JSON goes here.";
 
