@@ -68,7 +68,7 @@ var jsonModel = (function() {
       */
 
       regexer = /\s.*{/g;
-      myArray = tempM.match(regexer);
+      myArray = tempM.match(regexer) || "No Match Found";
       var baseSplit = myArray.toString().split(" ");
       var secondSplit = baseSplit.toString().split("\n");
       var spliter = secondSplit.toString().split(",");
